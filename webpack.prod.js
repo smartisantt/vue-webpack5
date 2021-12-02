@@ -1,9 +1,8 @@
-const merge = require('webapck-merge');
+const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.config');
 
 const devConfig = {
   mode: 'production',
-  devtool: 'none',
   optimization: {
     splitChunks: {
       //分包配置
