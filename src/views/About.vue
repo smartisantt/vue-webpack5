@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>{{$store.state.count}}</h1>
-    <button @click="handleClick" }>click</button>
+    <h1>{{ count }}</h1>
+    <button @click="handleClick">click</button>
   </div>
 </template>
 
@@ -9,10 +9,15 @@
 export default {
   methods: {
     handleClick() {
-      this.$store.commit('increment')
+      this.$store.commit('increment');
     },
   },
-}
+  computed: {
+    count() {
+      return this.$store.state.count;
+    },
+  },
+};
 </script>
 
 <style>

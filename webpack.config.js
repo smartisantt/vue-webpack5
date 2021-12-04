@@ -12,50 +12,56 @@ module.exports = {
     filename: 'js/[name].[chunkhash:5].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    assetModuleFilename: 'assets/[hash][ext][query]'
+    assetModuleFilename: 'assets/[hash][ext][query]',
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      _: __dirname
-    }
+      _: __dirname,
+    },
   },
   module: {
     rules: [
       {
         test: /\.(mp3|mp4)$/,
-        type: 'asset/resource'
+        type: 'asset/resource',
       },
       {
         test: /\.(gif|png|webp|svg|jpg|jpeg|bmp)$/,
         type: 'asset',
         parser: {
           dataUrlCondition: {
-            maxSize: 1024
-          }
-        }
+            maxSize: 1024,
+          },
+        },
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        use: 'vue-loader',
       },
       {
         test: /\.(css|less)$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader'],
       },
-      { test: /\.js$/, use: 'babel-loader' }
-    ]
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+        },
+        exclude: /node_modules/,
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      filename: 'index.html'
+      filename: 'index.html',
     }),
     new MiniCssExtractPlugin({
       // 打包 css 代码 到文件中
       filename: 'css/[name].css',
-      chunkFilename: 'css/common.[hash:5].css' // 针对公共样式的文件名
+      chunkFilename: 'css/common.[hash:5].css', // 针对公共样式的文件名
     }),
     new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
@@ -65,10 +71,10 @@ module.exports = {
           from: path.resolve(__dirname, 'public'),
           to: './',
           globOptions: {
-            ignore: ['**/*.html']
-          }
-        }
-      ]
-    })
-  ]
+            ignore: ['**/*.html'],
+          },
+        },
+      ],
+    }),
+  ],
 };
